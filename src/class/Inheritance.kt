@@ -62,3 +62,48 @@ class Cat(
     }
 
 }
+
+
+/**
+ * 인터페이스
+ * - default 메서드
+ */
+interface Flyable {
+
+    // default 메서드
+    fun act() {
+        println("파닥")
+    }
+}
+
+interface Swimable {
+
+    // default 메서드
+    fun act() {
+        println("어푸")
+    }
+}
+
+class Penguin (
+    species: String,
+) : Animal(species, 2), Swimable, Flyable {
+
+    private val wingCount: Int = 2
+
+    override fun move() {
+        println("꿱꿱")
+    }
+
+    // override field
+    // custom getter를 통해 Animal.legCount 재정의
+    override val legCount: Int
+        get() = super.legCount + this.wingCount
+
+
+    // override method
+    override fun act() {
+        //상위 인터페이스의 타입을 지정하여 default 메서드 호출
+        super<Swimable>.act()
+        super<Flyable>.act()
+    }
+}
