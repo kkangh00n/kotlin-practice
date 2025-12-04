@@ -37,3 +37,28 @@ class Derived(
         println("Derived class")
     }
 }
+
+
+/**
+ * 추상 클래스
+ * - open 키워드를 통해서 타 클래스의 상속을 허용
+ * - 그렇지 않으면 상속 불가
+ */
+abstract class Animal(
+    protected val species: String,
+    protected open val legCount: Int
+) {
+
+    abstract fun move()
+
+}
+
+class Cat(
+    species: String
+) : Animal(species, 4) {
+
+    override fun move() {
+        println("사뿐사뿐")
+    }
+
+}
