@@ -1,5 +1,5 @@
 class Person(
-    val name: String,
-    val age: Int
+    var name: String = "홍길동",
+    var age: Int = 28
 ) {
 }
