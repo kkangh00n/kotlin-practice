@@ -15,10 +15,14 @@ import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.CompletableFuture
 
 /**
- * suspend function - 중단 함수
- * - 다른 suspend function을 호출할 수 있는 능력이 생긴다.
- * - 코루틴이 중지되었다가 재개될 수 있는 지점인 suspension point 이다.
- *      -> 무조건 중지되는 것이 아닌, 중지가 될 수도 있고 되지 않을 수도 있다는 의미
+ * suspend function - 코루틴이 중단될 수도 있는 함수
+ * - 다른 suspend function을 호출할 수 있다.
+ * - 코루틴이 중단되었다가 재개될 수 있는 지점인 suspension point 이다.
+ *      -> 무조건 중단되는 것이 아닌, 중단 될 수도 있고 되지 않을 수도 있다는 의미
+ * - 코루틴이 중단되는 경우는 다음과 같다.
+ *      1. 비동기 I/O 작업
+ *      2. delay, yield 같은 중단 함수
+ *      3. 다른 중단 가능한 suspend 함수를 호출하는 경우
  */
 
 fun main() {
