@@ -1,5 +1,7 @@
 package collection
 
+import kotlin.system.measureTimeMillis
+
 /**
  * collection method
  */
@@ -24,9 +26,9 @@ fun main() {
      */
     fruits.map { fruit -> fruit.price }
     fruits.mapIndexed { idx, fruit ->
-            println(idx)
-            fruit.price
-        }
+        println(idx)
+        fruit.price
+    }
 
     /**
      * all, none, any
@@ -110,7 +112,7 @@ fun main() {
     fruits.groupBy { fruit -> fruit.name }
     //(name, List<price>)
     //이름을 기준으로, 가격 리스트 생성
-    fruits.groupBy({fruit -> fruit.name}, {fruit -> fruit.price})
+    fruits.groupBy({ fruit -> fruit.name }, { fruit -> fruit.price })
 
 
     /**
@@ -142,4 +144,58 @@ fun main() {
     val max = fruits.maxByOrNull { fruit -> fruit.price }
     println(min?.price)
     println(max?.price)
+
+
+    /**
+     * iterable vs sequence
+     *
+     * 결론
+     * iterable - 지연 연산 X, 일괄 처리 방식
+     * sequence - 지연 연산, 파이프라이닝 처리 방식
+     */
+
+    val range = (1..10)
+
+    //iterable
+    //지연 연산 및 처리 방식 확인
+    println("iterable 지연 연산 및 처리 방식 확인 start")
+    range
+        .filterIndexed { index, i ->
+            println("filter: $index")
+            i % 9 != 0
+        }
+        .mapIndexed { index, i ->
+            println("map: $index")
+            i * 1.1
+        }
+    println("iterable 지연 연산 및 처리 방식 확인 end")
+
+    //sequence 지연 연산 확인
+    println("sequence 지연 연산 확인 start")
+    range
+        .asSequence()
+        .filterIndexed { index, i ->
+            println("filter: $index")
+            i % 9 != 0
+        }
+        .mapIndexed { index, i ->
+            println("map: $index")
+            i * 1.1
+        }
+    println("sequence 지연 연산 확인 end")
+
+    //sequence 지연 연산 확인
+    println("sequence 처리 방식 확인 start")
+    range
+        .asSequence()
+        .filterIndexed { index, i ->
+            println("filter: $index")
+            i % 9 != 0
+        }
+        .mapIndexed { index, i ->
+            println("map: $index")
+            i * 1.1
+        }
+        .toList()
+    println("sequence 처리 방식 확인 end")
 }
