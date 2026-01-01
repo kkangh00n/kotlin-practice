@@ -103,6 +103,27 @@ class Cage<T> {
 }
 
 
+/**
+ * 제네릭 제약
+ */
+//T 타입에 대한 상한선 -> Animal 하위 타입만 가능
+class Cage2<T : Animal>
+//여러 제약을 두고 싶을 경우
+//where T : Animal, T : Comparable<T>
+{
+    private val animals: MutableList<T> = mutableListOf()
+    fun getFirst(): T {
+        return animals.first()
+    }
+    fun put(animal: T) {
+        this.animals.add(animal)
+    }
+    fun moveFromInVariant(cage: Cage2<T>) {
+        this.animals.addAll(cage.animals)
+    }
+}
+
+
 
 
 abstract class Animal(
