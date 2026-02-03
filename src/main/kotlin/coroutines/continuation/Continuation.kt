@@ -104,7 +104,10 @@ class UserService {
                 println(" 유저를 가져오겠습니다")
                 /**
                  * 1차 중단
-                 * 비동기 작업 시작 -> 코루틴 중단, 스레드 해제
+                 * findProfile이 suspend 함수이므로 여기서 중단 가능
+                 * 실제로는 이 시점에 COROUTINE_SUSPENDED 반환하고 함수 탈출
+                 * 스레드는 해제되어 다른 코루틴 실행 가능
+                 * I/O 완료 시 스케줄러가 continuation.resumeWith() 호출하여 재개
                  */
                 val profile = userProfileRepository.findProfile(userId)
 
